@@ -1,0 +1,47 @@
+{% extends 'BusinessDirectoryBundle::Layout/base.html.twig' %}
+
+{% block title %}Manage {{ modelName.plural }}{% endblock %}
+
+{% block content %}
+
+
+{% if pages %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Is published</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for page in pages %}
+        <tr>
+            <td>{{ page.id }}</td>
+            <td>{{ page.name }}</td>
+            <td>{{ page.isPublished ? "Yes" : "No" }}</td>
+            <td>
+                <a href="{{ path(currentController~'_read', {id: page.id, slug: page.slug}) }}" class="btn btn-sm btn-success">Show</a>
+                <a href="{{ path(currentController~'_update', {id: page.id}) }}" class="btn btn-sm btn-info">Edit</a>
+                <a href="{{ path(currentController~'_delete', {id: page.id}) }}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+
+<div class="text-center h2">
+
+    <br/><br/>
+    No {{ modelName.singular }} has been created for the moment.
+
+</div>
+
+{% endif %}
+
+<br/><br/>
+<a href="{{ path(currentController~'_create') }}" class="btn btn-info float-right">Create {{ modelName.singular }}</a>
+
+{% endblock %}

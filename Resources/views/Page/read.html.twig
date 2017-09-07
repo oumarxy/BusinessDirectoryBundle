@@ -1,0 +1,11 @@
+{% extends 'BusinessDirectoryBundle::Layout/base.html.twig' %}
+
+{% block title %}{{ page.name }}{% endblock %}
+{% block description %}{{ page.description }}{% endblock %}
+{% block author %}{% if page.organization is defined %}{{ page.organization.name }}{% endif %}{% endblock %}
+
+{% block content %}
+
+<p>{{ page.description }}</p>
+
+{% endblock %}

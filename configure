@@ -1,0 +1,28 @@
+BOOTSTRAP_RELEASE_PATH=https://github.com/twbs/bootstrap/releases/download/v4.0.0-beta/
+BOOTSTRAP_RELEASE_FILE=bootstrap-4.0.0-beta-dist.zip
+
+JQUERY_RELEASE_PATH=https://code.jquery.com/
+JQUERY_RELEASE_FILE=jquery-3.2.1.slim.min.js
+
+POPPER_RELEASE_PATH=http://getbootstrap.com/assets/js/vendor/
+POPPER_RELEASE_FILE=popper.min.js
+
+
+cd Resources/public/vendor
+
+{
+    rm -f jquery.min.js &&
+    wget $JQUERY_RELEASE_PATH/$JQUERY_RELEASE_FILE -O jquery.min.js
+} &&
+{
+    rm -rf bootstrap &&
+    mkdir bootstrap &&
+    cd bootstrap &&
+    wget $BOOTSTRAP_RELEASE_PATH/$BOOTSTRAP_RELEASE_FILE &&
+    unzip $BOOTSTRAP_RELEASE_FILE
+    cd ..
+} &&
+{
+    rm -f $POPPER_RELEASE_PATH &&
+    wget $POPPER_RELEASE_PATH/$POPPER_RELEASE_FILE
+}

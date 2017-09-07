@@ -1,0 +1,72 @@
+home_index:
+    path: /
+    defaults: { _controller: BusinessDirectoryBundle:Home:index }
+
+
+organization_index:
+    path: /organization
+    defaults: { _controller: BusinessDirectoryBundle:Page/Organization:index }
+organization_search:
+    path: /organization/search
+    defaults: { _controller: BusinessDirectoryBundle:Page/Organization:search }
+organization_manage:
+    path: /organization/manage
+    defaults: { _controller: BusinessDirectoryBundle:Page/Organization:manage }
+organization_create:
+    path: /organization/create
+    defaults: { _controller: BusinessDirectoryBundle:Page/Organization:create }
+organization_update:
+    path: /organization/{id}/update
+    defaults: { _controller: BusinessDirectoryBundle:Page/Organization:update }
+organization_delete:
+    path: /organization/{id}/delete
+    defaults: { _controller: BusinessDirectoryBundle:Page/Organization:delete }
+organization_read:
+    path: /organization/{id}/{slug}
+    defaults: { _controller: BusinessDirectoryBundle:Page/Organization:read }
+
+
+quote_index:
+    path: /quote
+    defaults: { _controller: BusinessDirectoryBundle:Page/Quote:index }
+quote_search:
+    path: /quote/search
+    defaults: { _controller: BusinessDirectoryBundle:Page/Quote:search }
+quote_manage:
+    path: /quote/manage
+    defaults: { _controller: BusinessDirectoryBundle:Page/Quote:manage }
+quote_create:
+    path: /quote/create
+    defaults: { _controller: BusinessDirectoryBundle:Page/Quote:create }
+quote_update:
+    path: /quote/{id}/update
+    defaults: { _controller: BusinessDirectoryBundle:Page/Quote:update }
+quote_delete:
+    path: /quote/{id}/delete
+    defaults: { _controller: BusinessDirectoryBundle:Page/Quote:delete }
+quote_read:
+    path: /quote/{id}/{slug}
+    defaults: { _controller: BusinessDirectoryBundle:Page/Quote:read }
+
+
+opportunity_index:
+    path: /opportunity
+    defaults: { _controller: BusinessDirectoryBundle:Page/Opportunity:index }
+opportunity_search:
+    path: /opportunity/search
+    defaults: { _controller: BusinessDirectoryBundle:Page/Opportunity:search }
+opportunity_manage:
+    path: /opportunity/manage
+    defaults: { _controller: BusinessDirectoryBundle:Page/Opportunity:manage }
+opportunity_create:
+    path: /opportunity/create
+    defaults: { _controller: BusinessDirectoryBundle:Page/Opportunity:create }
+opportunity_update:
+    path: /opportunity/{id}/update
+    defaults: { _controller: BusinessDirectoryBundle:Page/Opportunity:update }
+opportunity_delete:
+    path: /opportunity/{id}/delete
+    defaults: { _controller: BusinessDirectoryBundle:Page/Opportunity:delete }
+opportunity_read:
+    path: /opportunity/{id}/{slug}
+    defaults: { _controller: BusinessDirectoryBundle:Page/Opportunity:read }

@@ -1,0 +1,12 @@
+{% extends 'BusinessDirectoryBundle::Layout/base.html.twig' %}
+
+{% block title %}Delete {{ modelName.singular }} {{ page.name }}{% endblock %}
+
+{% block content %}
+
+<p><strong>WARNING : This option is irreversible, do it carefully.</strong></p>
+
+{{ form(form) }}
+<a href="{{ path(currentController~'_manage') }}" class="btn btn-info">Go back to {{ modelName.plural }}</a>
+
+{% endblock %}

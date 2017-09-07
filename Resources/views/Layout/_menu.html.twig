@@ -1,0 +1,50 @@
+{% set controllerMenuItems = {
+    'home': {
+        'label': "Home",
+        'isPage': false,
+    },
+    'organization': {
+        'label': "Organizations",
+        'isPage': true,
+    },
+    'quote': {
+        'label': "Quotes",
+        'isPage': true,
+    },
+    'opportunity': {
+        'label': "Opportunity",
+        'isPage': true,
+    },
+} %}
+
+{% set pageMenuItems = {
+    'index': "Explore",
+    'search': "Search",
+    'manage': "Manage",
+    'create': "Create",
+} %}
+
+
+<ul class="navbar-nav mr-auto">
+    {% for controller, options in controllerMenuItems %}
+    {% set showDropdown = controller == currentController and options.isPage %}
+    <li class="nav-item{% if controller == currentController %} active{% if options.isPage %} dropdown{% endif %}{% endif %}">
+        <a class="nav-link{% if showDropdown %} dropdown-toggle{% endif %}"
+           {% if showDropdown %}
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+           {% endif %}
+           {% if options.isPage %} id="dropdown-{{ controller }}"{% endif %}
+           {% if currentController != controller %} href="{{ path(controller~'_index') }}"{% endif %}
+           >
+           {{ options.label }}
+        </a>
+        {% if showDropdown %}
+        <div class="dropdown-menu"{% if options.isPage %} aria-labelledby="dropdown-{{ controller }}"{% endif %}>
+            {% for action, label in pageMenuItems %}
+            <a class="dropdown-item{% if action == currentAction %} active{% endif %}" href="{{ path(controller~'_'~action) }}">{{ label }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
