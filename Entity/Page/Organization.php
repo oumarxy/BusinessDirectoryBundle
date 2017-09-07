@@ -27,7 +27,7 @@ use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page;
  */
 
 /**
-* @ORM\Entity
+* @ORM\Entity(repositoryClass="SavoirFaireLinux\BusinessDirectoryBundle\Repository\Page\OrganizationRepository")
 */
 class Organization extends Page {
 

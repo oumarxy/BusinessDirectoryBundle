@@ -34,15 +34,28 @@ use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Taxonomy\Category;
 
 abstract class PageController extends ApplicationController {
 
+    const N_EL_PER_PAGE = 10;
+
     /**
      * @Method({"GET"})
      * @Template("BusinessDirectoryBundle:Page:index.html.twig")
      */
-    public function indexAction() {
+    public function indexAction(Request $request) {
+        $filters = [
+            'category' => $request->query->get('category'),
+            'region' => $request->query->get('region'),
+        ];
+        $pageNo = $request->query->get('pageNo') ?: 1;
+        $pages = $this->getRepository(static::$model)->findByFilters(
+            $pageNo, self::N_EL_PER_PAGE, $filters
+        );
         return [
             'categories' => $this->getRepository(Category::class)->findAll(),
-            'pages' => $this->getRepository(static::$model)->findAll(),
+            'nPage' => ceil($pages->count() / self::N_EL_PER_PAGE),
+            'pageNo' => $pageNo,
             'modelName' => static::$name,
+            'filters' => $filters,
+            'pages' => $pages,
         ];
     }
 

@@ -1,9 +1,8 @@
 <?php
-namespace SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page;
+namespace SavoirFaireLinux\BusinessDirectoryBundle\Repository;
+use Doctrine\ORM\EntityRepository;
 
-use Doctrine\ORM\Mapping as ORM;
-
-use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * SFL/BusinessDirectory - Symfony3 business directory
@@ -26,9 +25,21 @@ use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page;
  * along with SFL/BusinessDirectory.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
-* @ORM\Entity(repositoryClass="SavoirFaireLinux\BusinessDirectoryBundle\Repository\Page\OpportunityRepository")
-*/
-class Opportunity extends Page {
+class PageRepository extends EntityRepository {
+
+    public function findByFilters($pageNo, $nElPerPage, $filters) {
+        $queryBuilder = $this->createQueryBuilder('p')
+                      ->where('p.isPublished = true')
+                      ->orderBy('p.createdAt', 'DESC');
+        foreach($filters as $key => $value) {
+            if($value == null) continue;
+            $queryBuilder->where('p.' . $key . ' = :' . $key);
+            $queryBuilder->setParameter($key, $value);
+        }
+        $query = $queryBuilder->getQuery();
+        $query->setFirstResult($nElPerPage * ($pageNo - 1))
+              ->setMaxResults($nElPerPage);
+        return new Paginator($query);
+    }
 
 }

@@ -3,4 +3,26 @@
 {% block title %}Explore {{ modelName.plural }}{% endblock %}
 
 {% block content %}
+
+<div class="row">
+
+    <div class="col-md-3">
+    </div>
+
+    <div class="col-md-9">
+        {% if nPage == 0 %}
+        <br/><br/>
+        <p class="h2">Nothing can be found here</p>
+        {% else %}
+
+        {% for page in pages %}
+            {% include 'BusinessDirectoryBundle::Page/_inline.html.twig' %}
+        {% endfor %}
+
+        {% include 'BusinessDirectoryBundle::Page/_pagination.html.twig' %}
+        {% endif %}
+    </div>
+
+</div>
+
 {% endblock %}
