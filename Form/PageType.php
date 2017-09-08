@@ -3,9 +3,11 @@ namespace SavoirFaireLinux\BusinessDirectoryBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * SFL/BusinessDirectory - Symfony3 business directory
@@ -38,10 +40,21 @@ class PageType extends AbstractType {
         ->add('description', TextType::class, [
             'label' => "Description of the page",
             'required' => true,
-        ])
-        ->add('is_published', CheckboxType::class, [
+        ]);
+        foreach($options['filters'] as $key => $class) {
+            $builder->add($key, EntityType::class, array(
+                'class' => $class,
+            ));
+        }
+        $builder->add('is_published', CheckboxType::class, [
             'label' => "Is published ?",
             'required' => false
+        ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
+            'filters' => [],
         ]);
     }
 

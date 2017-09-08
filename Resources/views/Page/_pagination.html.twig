@@ -2,7 +2,7 @@
 
     {% if pageNo > 1 %}
     <li class="page-item">
-        <a class="page-link" href="{{ path(currentRoute, {pageNo: pageNo - 1}|merge(filters)) }}">
+        <a class="page-link" href="{{ path(currentRoute, {pageNo: pageNo - 1}|merge(filtersSelected)) }}">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">Previous</span>
         </a>
@@ -11,13 +11,13 @@
 
     {% for i in range(1, nPage) %}
     <li class="page-item{% if i == pageNo %} active{% endif %}">
-        <a class="page-link" href="{{ path(currentRoute, {pageNo: i}|merge(filters)) }}">{{ i }}</a>
+        <a class="page-link" href="{{ path(currentRoute, {pageNo: i}|merge(filtersSelected)) }}">{{ i }}</a>
     </li>
     {% endfor %}
 
     {% if pageNo < nPage %}
     <li class="page-item">
-        <a class="page-link" href="{{ path(currentRoute, {pageNo: pageNo + 1}|merge(filters)) }}">
+        <a class="page-link" href="{{ path(currentRoute, {pageNo: pageNo + 1}|merge(filtersSelected)) }}">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
         </a>

@@ -33,7 +33,7 @@ class PageRepository extends EntityRepository {
                       ->orderBy('p.createdAt', 'DESC');
         foreach($filters as $key => $value) {
             if($value == null) continue;
-            $queryBuilder->where('p.' . $key . ' = :' . $key);
+            $queryBuilder->andWhere('p.' . $key . ' = :' . $key);
             $queryBuilder->setParameter($key, $value);
         }
         $query = $queryBuilder->getQuery();

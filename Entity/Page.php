@@ -39,6 +39,35 @@ abstract class Page {
     use ModelTrait\Timestamp;
     use ModelTrait\Published;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="SavoirFaireLinux\BusinessDirectoryBundle\Entity\Taxonomy\Category")
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SavoirFaireLinux\BusinessDirectoryBundle\Entity\Taxonomy\Region")
+     */
+    private $region;
+
+
+    public function getCategory() {
+        return $this->category;
+    }
+
+    public function setCategory($category) {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getRegion() {
+        return $this->region;
+    }
+
+    public function setRegion($region) {
+        $this->region = $region;
+        return $this;
+    }
+
 
     public function getDiscr() {
         $machine = explode('\\', get_class($this));

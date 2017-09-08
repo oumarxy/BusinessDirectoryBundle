@@ -8,8 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Taxonomy\Region;
 use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Taxonomy\Category;
+use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Taxonomy\Region;
 
 /**
  * SFL/BusinessDirectory - Symfony3 business directory
@@ -35,27 +35,39 @@ use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Taxonomy\Category;
 abstract class PageController extends ApplicationController {
 
     const N_EL_PER_PAGE = 10;
+    static $filters = [];
+
+    protected function filtersInjection() {
+        static::$filters = [
+            'region' => Region::class,
+            'category' => Category::class,
+        ];
+    }
 
     /**
      * @Method({"GET"})
      * @Template("BusinessDirectoryBundle:Page:index.html.twig")
      */
     public function indexAction(Request $request) {
-        $filters = [
-            'category' => $request->query->get('category'),
-            'region' => $request->query->get('region'),
-        ];
+        $this->filtersInjection();
+        $filtersSelected = [];
+        $filtersChoices = [];
+        foreach(static::$filters as $key => $filterClass) {
+            $filtersSelected[$key] = $request->query->get($key);
+            $filtersChoices[$key] = $this->getRepository($filterClass)->findAll();
+        }
         $pageNo = $request->query->get('pageNo') ?: 1;
         $pages = $this->getRepository(static::$model)->findByFilters(
-            $pageNo, self::N_EL_PER_PAGE, $filters
+            $pageNo, self::N_EL_PER_PAGE, $filtersSelected
         );
         return [
-            'categories' => $this->getRepository(Category::class)->findAll(),
             'nPage' => ceil($pages->count() / self::N_EL_PER_PAGE),
             'pageNo' => $pageNo,
             'modelName' => static::$name,
-            'filters' => $filters,
+            'filtersChoices' => $filtersChoices,
+            'filtersSelected' => $filtersSelected,
             'pages' => $pages,
+            'getParameters' => $_GET,
         ];
     }
 
@@ -177,8 +189,10 @@ abstract class PageController extends ApplicationController {
     }
 
     private function generateComposeForm($page) {
+        $this->filtersInjection();
         $form = $this->createForm((string) static::$form, $page, [
             'method' => 'POST',
+            'filters' => static::$filters,
         ]);
         $form->add('submit', SubmitType::class, ['label' => 'Save']);
         return $form;

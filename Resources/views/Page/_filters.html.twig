@@ -1,0 +1,23 @@
+{% for key, elements in filtersChoices %}
+<div class="card my-4">
+    <h5 class="card-header">{{ key|capitalize }}</h5>
+    <div class="card-body">
+        <ul class="list-unstyled mb-0 nav-pills">
+            <li class="nav-item">
+                <a class="nav-link{% if getParameters[key]|default == null %} active{% endif %}"
+                   href="{{ path(currentController~'_index', getParameters|merge({(key): null, pageNo: null})) }}">
+                    Everything
+                </a>
+            </li>
+            {% for filter in elements %}
+            <li class="active nav-item">
+                <a class="nav-link{% if getParameters[key]|default == filter.id %} active{% endif %}"
+                   href="{{ path(currentController~'_index', getParameters|merge({(key): filter.id, pageNo: null})) }}">
+                    {{ filter.name }}
+                </a>
+            </li>
+            {% endfor %}
+       </ul>
+    </div>
+</div>
+{% endfor %}

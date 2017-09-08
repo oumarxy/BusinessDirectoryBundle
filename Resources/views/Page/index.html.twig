@@ -7,12 +7,13 @@
 <div class="row">
 
     <div class="col-md-3">
+        {% include 'BusinessDirectoryBundle::Page/_filters.html.twig' %}
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-9 my-4">
         {% if nPage == 0 %}
         <br/><br/>
-        <p class="h2">Nothing can be found here</p>
+        <p class="h2 text-center">Nothing can be found here</p>
         {% else %}
 
         {% for page in pages %}
