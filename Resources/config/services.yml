@@ -1,0 +1,7 @@
+services:
+    app.session_listener:
+        class: SavoirFaireLinux\BusinessDirectoryBundle\EventListener\SessionListener
+        tags:
+            - name: kernel.event_listener
+              event: kernel.controller
+              method: onKernelController

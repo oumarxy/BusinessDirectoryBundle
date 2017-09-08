@@ -24,6 +24,16 @@
     'create': "Create",
 } %}
 
+{% if currentUser %}
+{% set extraMenuItems = {
+    'user_logout': "Logout",
+} %}
+{% else %}
+{% set extraMenuItems = {
+    'user_login': "Login",
+    'user_signup': "Signup",
+} %}
+{% endif %}
 
 <ul class="navbar-nav mr-auto">
     {% for controller, options in controllerMenuItems %}
@@ -47,4 +57,12 @@
         {% endif %}
     </li>
     {% endfor %}
+
+    {% for route, label in extraMenuItems %}
+    <li class="nav-item">
+        <a class="nav-link{% if route == currentRoute %} active{% endif %}"
+           href="{{ path(route) }}">{{ label }}</a>
+    </li>
+    {% endfor %}
+
 </ul>

@@ -1,0 +1,16 @@
+{% extends 'BusinessDirectoryBundle::Layout/base.html.twig' %}
+
+{% block title %}Authentication{% endblock %}
+
+{% block content %}
+
+    {{ form(form) }}
+
+    <a href="{{ path('user_signup') }}" class="btn btn-default">
+        Register now !
+    </a>
+
+{% endblock %}
+
+
+

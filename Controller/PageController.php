@@ -2,7 +2,10 @@
 namespace SavoirFaireLinux\BusinessDirectoryBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
@@ -76,8 +79,9 @@ abstract class PageController extends ApplicationController {
      * @Template("BusinessDirectoryBundle:Page:manage.html.twig")
      */
     public function manageAction() {
+        if($this->getCurrentUser() == null) return $this->requireLogin();
         return [
-            'pages' => $this->getRepository(static::$model)->findAll(),
+            'pages' => $this->getRepository(static::$model)->findByUser($this->getCurrentUser()),
             'modelName' => static::$name,
         ];
     }
@@ -99,9 +103,16 @@ abstract class PageController extends ApplicationController {
      */
     public function readAction($id, $slug) {
         $page = $this->getRepository(static::$model)->find($id);
-        if($page == null || $page->getIsPublished() == false) {
-            throw new NotFoundHttpException("404 Not Found");
+        if($page == null) throw new NotFoundHttpException("404 Not Found");
+        if($page->getIsPublished() == false) {
+            if($page->getUser() == $this->getCurrentUser()) {
+                $this->addFlashMessage('warning', "This page is not published, only you can view it.");
+            }
+            else {
+                throw new NotFoundHttpException("404 Not Found");
+            }
         }
+
         if($page->getSlug() != $slug) {
             return $this->redirectToRoute(static::$route.'_read', [
                 'id' => $page->getId(), 'slug' => $page->getSlug()
@@ -118,10 +129,12 @@ abstract class PageController extends ApplicationController {
      * @Template("BusinessDirectoryBundle:Page:create.html.twig")
      */
     public function createAction(Request $request) {
+        if($this->getCurrentUser() == null) return $this->requireLogin();
         $page = new static::$model;
         $form = $this->generateComposeForm($page);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
+            $page->setUser($this->getCurrentUser());
             $this->getEntityManager()->persist($page);
             $this->getEntityManager()->flush();
             $this->addFlashMessage('success', "Page successfully saved.");
@@ -141,8 +154,11 @@ abstract class PageController extends ApplicationController {
      * @Template("BusinessDirectoryBundle:Page:update.html.twig")
      */
     public function updateAction(Request $request, $id) {
+        if($this->getCurrentUser() == null) return $this->requireLogin();
         $page = $this->getRepository(static::$model)->find($id);
         if($page == null) throw new NotFoundHttpException("404 Not Found");
+        if($page->getUser() != $this->getCurrentUser())
+            throw new AccessDeniedHttpException("403 Access Denied");
         $form = $this->generateComposeForm($page);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -166,6 +182,8 @@ abstract class PageController extends ApplicationController {
     public function deleteAction(Request $request, $id) {
         $page = $this->getRepository(static::$model)->find($id);
         if($page == null) throw new NotFoundHttpException("404 Not Found");
+        if($page->getUser() != $this->getCurrentUser())
+            throw new AccessDeniedHttpException("403 Access Denied");
         $form = $this->createFormBuilder();
         $form->add('submit', SubmitType::class, [
             'label' => 'Delete page',

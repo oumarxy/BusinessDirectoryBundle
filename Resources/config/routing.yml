@@ -70,3 +70,14 @@ opportunity_delete:
 opportunity_read:
     path: /opportunity/{id}/{slug}
     defaults: { _controller: BusinessDirectoryBundle:Page/Opportunity:read }
+
+
+user_login:
+    path: /users/login
+    defaults: { _controller: BusinessDirectoryBundle:User:login }
+user_logout:
+    path: /users/logout
+    defaults: { _controller: BusinessDirectoryBundle:User:logout }
+user_signup:
+    path: /users/signup
+    defaults: { _controller: BusinessDirectoryBundle:User:signup }

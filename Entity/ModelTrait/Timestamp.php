@@ -58,6 +58,21 @@ trait Timestamp {
      * @ORM\PreUpdate()
      */
     private function timestampPreUpdate(){
-        $this->updatedAt = new \DateTime;
+        if(!@$this->cancelUpdatedAtTrigger) {
+            $this->updatedAt = new \DateTime;
+        }
+        $this->setCancelUpdatedAtTrigger(false);
     }
+
+
+    private $cancelUpdatedAtTrigger;
+
+    public function getCancelUpdatedAtTrigger() {
+        return $this->cancelUpdatedAtTrigger;
+    }
+
+    public function setCancelUpdatedAtTrigger($cancelUpdatedAtTrigger) {
+        $this->cancelUpdatedAtTrigger = $cancelUpdatedAtTrigger;
+    }
+
 }

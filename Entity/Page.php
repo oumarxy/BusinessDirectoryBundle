@@ -40,6 +40,11 @@ abstract class Page {
     use ModelTrait\Published;
 
     /**
+     * @ORM\ManyToOne(targetEntity="SavoirFaireLinux\BusinessDirectoryBundle\Entity\User")
+     */
+    private $user;
+
+    /**
      * @ORM\ManyToOne(targetEntity="SavoirFaireLinux\BusinessDirectoryBundle\Entity\Taxonomy\Category")
      */
     private $category;
@@ -49,6 +54,15 @@ abstract class Page {
      */
     private $region;
 
+
+    public function getUser() {
+        return $this->user;
+    }
+
+    public function setUser($user) {
+        $this->user = $user;
+        return $this;
+    }
 
     public function getCategory() {
         return $this->category;
