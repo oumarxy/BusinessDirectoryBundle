@@ -38,6 +38,7 @@ abstract class Page {
     use ModelTrait\Description;
     use ModelTrait\Timestamp;
     use ModelTrait\Published;
+    use ModelTrait\Content;
 
     /**
      * @ORM\ManyToOne(targetEntity="SavoirFaireLinux\BusinessDirectoryBundle\Entity\User")
