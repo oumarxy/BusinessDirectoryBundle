@@ -11,15 +11,15 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-        {%- if block('title') -%}
+        {%- if block('title') is defined -%}
         <title>{{ block('title') }}</title>
         {%- endif -%}
 
-        {%- if block('description') -%}
+        {%- if block('description') is defined -%}
         <meta name="description" content="{{ block('description') }}" />
         {%- endif -%}
 
-        {%- if block('author') -%}
+        {%- if block('author') is defined -%}
         <meta name="description" content="{{ block('author') }}" />
         {%- endif -%}
 
@@ -67,7 +67,7 @@
 
         <div class="container">
 
-            {%- if block('title') -%}<h1>{{ block('title') }}</h1>{% endif %}
+            {%- if block('title') is defined -%}<h1>{{ block('title') }}</h1>{% endif %}
             {{ block('content') }}
             <br/><br/>
             <hr/>
