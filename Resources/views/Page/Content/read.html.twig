@@ -1,0 +1,22 @@
+{% extends 'BusinessDirectoryBundle::Layout/base.html.twig' %}
+
+{% block title %}{{ page.name }}{% endblock %}
+{% block description %}{{ page.description }}{% endblock %}
+{% block author %}{% if page.organization is defined %}{{ page.organization.name }}{% endif %}{% endblock %}
+
+{% block content %}
+<p>{{ page.description }}</p>
+<hr/>
+
+{{ page.content|nl2br }}
+
+<hr/>
+
+<h3><a href="{{ path('organization_read', {
+    id: page.organization.id,
+    slug: page.organization.slug,
+}) }}">{{ page.organization.name }}</a></h3>
+
+<p>{{ page.organization.description }}</p>
+
+{% endblock %}

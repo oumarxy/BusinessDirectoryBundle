@@ -35,4 +35,12 @@ class ContentController extends PageController {
         }
     }
 
+    /**
+     * @Method({"GET"})
+     * @Template("BusinessDirectoryBundle:Page/Content:read.html.twig")
+     */
+    public function readAction($id, $slug) {
+        return parent::readAction($id, $slug);
+    }
+
 }
