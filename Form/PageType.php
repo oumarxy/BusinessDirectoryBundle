@@ -60,6 +60,7 @@ class PageType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'filters' => [],
+            'user' => null,
         ]);
     }
 

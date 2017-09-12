@@ -31,4 +31,61 @@ use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page;
 */
 class Organization extends Page {
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $emailAddress;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $websiteAddress;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $officeAddress;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $phoneNumber;
+
+
+    public function getEmailAddress() {
+        return $this->emailAddress;
+    }
+
+    public function setEmailAddress($emailAddress) {
+        $this->emailAddress = $emailAddress;
+        return $this;
+    }
+
+    public function getWebsiteAddress() {
+        return $this->websiteAddress;
+    }
+
+    public function setWebsiteAddress($websiteAddress) {
+        $this->websiteAddress = $websiteAddress;
+        return $this;
+    }
+
+    public function getOfficeAddress() {
+        return $this->officeAddress;
+    }
+
+    public function setOfficeAddress($officeAddress) {
+        $this->officeAddress = $officeAddress;
+        return $this;
+    }
+
+    public function getPhoneNumber() {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber($phoneNumber) {
+        $this->phoneNumber = $phoneNumber;
+        return $this;
+    }
+
 }

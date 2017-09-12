@@ -1,12 +1,9 @@
 <?php
-namespace SavoirFaireLinux\BusinessDirectoryBundle\Controller\Page;
-use SavoirFaireLinux\BusinessDirectoryBundle\Controller\PageController;
+namespace SavoirFaireLinux\BusinessDirectoryBundle\Controller\Page\Content;
+use SavoirFaireLinux\BusinessDirectoryBundle\Controller\Page\ContentController;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
-use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page\Organization;
-use SavoirFaireLinux\BusinessDirectoryBundle\Form\Page\OrganizationType;
+use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page\Content\Quote;
+use SavoirFaireLinux\BusinessDirectoryBundle\Form\Page\Content\QuoteType;
 
 /**
  * SFL/BusinessDirectory - Symfony3 business directory
@@ -29,22 +26,14 @@ use SavoirFaireLinux\BusinessDirectoryBundle\Form\Page\OrganizationType;
  * along with SFL/BusinessDirectory.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class OrganizationController extends PageController {
+class QuoteController extends ContentController {
 
     static $name = [
-        'singular' => "organization",
-        'plural' => "organizations",
+        'singular' => "quote",
+        'plural' => "quotes",
     ];
-    static $form = OrganizationType::class;
-    static $model = Organization::class;
-    static $route = 'organization';
-
-    /**
-     * @Method({"GET"})
-     * @Template("BusinessDirectoryBundle:Page/Organization:read.html.twig")
-     */
-    public function readAction($id, $slug) {
-        return parent::readAction($id, $slug);
-    }
+    static $form = QuoteType::class;
+    static $model = Quote::class;
+    static $route = 'quote';
 
 }

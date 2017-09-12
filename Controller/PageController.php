@@ -47,6 +47,9 @@ abstract class PageController extends ApplicationController {
         ];
     }
 
+    protected function injectionComposePreload($request) {}
+
+
     /**
      * @Method({"GET"})
      * @Template("BusinessDirectoryBundle:Page:index.html.twig")
@@ -130,6 +133,8 @@ abstract class PageController extends ApplicationController {
      */
     public function createAction(Request $request) {
         if($this->getCurrentUser() == null) return $this->requireLogin();
+        $injectionComposePreload = $this->injectionComposePreload($request);
+        if($injectionComposePreload != null) return $injectionComposePreload;
         $page = new static::$model;
         $form = $this->generateComposeForm($page);
         $form->handleRequest($request);
@@ -155,6 +160,9 @@ abstract class PageController extends ApplicationController {
      */
     public function updateAction(Request $request, $id) {
         if($this->getCurrentUser() == null) return $this->requireLogin();
+        if($injectionComposePreload = $this->injectionComposePreload($request) != null) {
+            return $injectionComposePreload;
+        }
         $page = $this->getRepository(static::$model)->find($id);
         if($page == null) throw new NotFoundHttpException("404 Not Found");
         if($page->getUser() != $this->getCurrentUser())
@@ -210,6 +218,7 @@ abstract class PageController extends ApplicationController {
         $this->filtersInjection();
         $form = $this->createForm((string) static::$form, $page, [
             'method' => 'POST',
+            'user' => $this->getCurrentUser(),
             'filters' => static::$filters,
         ]);
         $form->add('submit', SubmitType::class, ['label' => 'Save']);

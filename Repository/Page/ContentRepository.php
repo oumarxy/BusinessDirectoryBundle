@@ -1,9 +1,6 @@
 <?php
-namespace SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page;
-
-use Doctrine\ORM\Mapping as ORM;
-
-use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page;
+namespace SavoirFaireLinux\BusinessDirectoryBundle\Repository\Page;
+use SavoirFaireLinux\BusinessDirectoryBundle\Repository\PageRepository;
 
 /**
  * SFL/BusinessDirectory - Symfony3 business directory
@@ -26,9 +23,6 @@ use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page;
  * along with SFL/BusinessDirectory.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
-* @ORM\Entity(repositoryClass="SavoirFaireLinux\BusinessDirectoryBundle\Repository\Page\OpportunityRepository")
-*/
-class Opportunity extends Page {
+class ContentRepository extends PageRepository {
 
 }

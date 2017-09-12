@@ -1,6 +1,8 @@
 <?php
-namespace SavoirFaireLinux\BusinessDirectoryBundle\Repository\Page;
-use SavoirFaireLinux\BusinessDirectoryBundle\Repository\PageRepository;
+namespace SavoirFaireLinux\BusinessDirectoryBundle\Form\Page\Content;
+use SavoirFaireLinux\BusinessDirectoryBundle\Form\Page\ContentType;
+
+use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * SFL/BusinessDirectory - Symfony3 business directory
@@ -23,6 +25,10 @@ use SavoirFaireLinux\BusinessDirectoryBundle\Repository\PageRepository;
  * along with SFL/BusinessDirectory.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class OpportunityRepository extends PageRepository {
+class OpportunityType extends ContentType {
+
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        parent::buildForm($builder, $options);
+    }
 
 }

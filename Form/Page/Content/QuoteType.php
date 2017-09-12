@@ -1,9 +1,8 @@
 <?php
-namespace SavoirFaireLinux\BusinessDirectoryBundle\Controller\Page;
-use SavoirFaireLinux\BusinessDirectoryBundle\Controller\PageController;
+namespace SavoirFaireLinux\BusinessDirectoryBundle\Form\Page\Content;
+use SavoirFaireLinux\BusinessDirectoryBundle\Form\Page\ContentType;
 
-use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page\Quote;
-use SavoirFaireLinux\BusinessDirectoryBundle\Form\Page\QuoteType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * SFL/BusinessDirectory - Symfony3 business directory
@@ -26,14 +25,10 @@ use SavoirFaireLinux\BusinessDirectoryBundle\Form\Page\QuoteType;
  * along with SFL/BusinessDirectory.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QuoteController extends PageController {
+class QuoteType extends ContentType {
 
-    static $name = [
-        'singular' => "quote",
-        'plural' => "quotes",
-    ];
-    static $form = QuoteType::class;
-    static $model = Quote::class;
-    static $route = 'quote';
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        parent::buildForm($builder, $options);
+    }
 
 }

@@ -55,6 +55,11 @@ class User {
      */
     private $lastLoginAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page\Organization", mappedBy="user")
+     */
+    private $organizations;
+
 
     public function __toString() {
         return $this->getEmail();
@@ -112,6 +117,10 @@ class User {
     public function setLastLoginAt($lastLoginAt) {
         $this->lastLoginAt = $lastLoginAt;
         return $this;
+    }
+
+    public function getOrganizations() {
+        return $this->organizations;
     }
 
 }

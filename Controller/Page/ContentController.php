@@ -1,8 +1,9 @@
 <?php
-namespace SavoirFaireLinux\BusinessDirectoryBundle\Form\Page;
-use SavoirFaireLinux\BusinessDirectoryBundle\Form\PageType;
+namespace SavoirFaireLinux\BusinessDirectoryBundle\Controller\Page;
+use SavoirFaireLinux\BusinessDirectoryBundle\Controller\PageController;
 
-use Symfony\Component\Form\FormBuilderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * SFL/BusinessDirectory - Symfony3 business directory
@@ -25,10 +26,13 @@ use Symfony\Component\Form\FormBuilderInterface;
  * along with SFL/BusinessDirectory.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class OpportunityType extends PageType {
+class ContentController extends PageController {
 
-    public function buildForm(FormBuilderInterface $builder, array $options) {
-        parent::buildForm($builder, $options);
+    protected function injectionComposePreload($request) {
+        if($this->getCurrentUser()->getOrganizations()->isEmpty()) {
+            $this->addFlashMessage('warning', "You must have at least one organization created.");
+            return $this->redirect($this->getReferer($request));
+        }
     }
 
 }

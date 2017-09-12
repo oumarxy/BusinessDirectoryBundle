@@ -2,6 +2,8 @@
 namespace SavoirFaireLinux\BusinessDirectoryBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+
 use SavoirFaireLinux\BusinessDirectoryBundle\Entity\User;
 use SavoirFaireLinux\BusinessDirectoryBundle\Repository\UserRepository;
 
@@ -72,11 +74,11 @@ abstract class ApplicationController extends Controller {
         return $this;
     }
 
-    protected function getReferer() {
-        if(isset($_SERVER['HTTP_REFERER'])) {
+    protected function getReferer(Request $request) {
+        if(isset($_SERVER['HTTP_REFERER']) and $_SERVER['HTTP_REFERER'] != $request->getUri()) {
             return $_SERVER['HTTP_REFERER'];
         }
-        return $this->generateUrl('page_index');
+        return $this->generateUrl('home_index');
     }
 
     protected function getAndClearRedirectTo() {

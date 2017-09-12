@@ -2,7 +2,13 @@
 namespace SavoirFaireLinux\BusinessDirectoryBundle\Form\Page;
 use SavoirFaireLinux\BusinessDirectoryBundle\Form\PageType;
 
+use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page\Organization;
+
+use Doctrine\ORM\EntityRepository;
+
 use Symfony\Component\Form\FormBuilderInterface;
+
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * SFL/BusinessDirectory - Symfony3 business directory
@@ -25,10 +31,20 @@ use Symfony\Component\Form\FormBuilderInterface;
  * along with SFL/BusinessDirectory.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QuoteType extends PageType {
+class ContentType extends PageType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         parent::buildForm($builder, $options);
+        $builder->add('organization', EntityType::class, [
+            'label' => "Owner organization of the page",
+            'required' => true,
+            'class' => Organization::class,
+            'query_builder' => function(EntityRepository $er) use ($options) {
+                return $er->createQueryBuilder('c')
+                          ->where('c.user = :user')
+                          ->setParameter('user', $options['user']);
+            },
+        ]);
     }
 
 }

@@ -4,6 +4,10 @@ use SavoirFaireLinux\BusinessDirectoryBundle\Form\PageType;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+
 /**
  * SFL/BusinessDirectory - Symfony3 business directory
  *
@@ -29,6 +33,19 @@ class OrganizationType extends PageType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         parent::buildForm($builder, $options);
+        $builder->add('emailAddress', EmailType::class, [
+            'label' => "Email address",
+            'required' => false,
+        ])->add('websiteAddress', UrlType::class, [
+            'label' => "Website address URL",
+            'required' => false,
+        ])->add('phoneNumber', TextType::class, [
+            'label' => "Phone number",
+            'required' => false,
+        ])->add('officeAddress', TextType::class, [
+            'label' => "Office physical address",
+            'required' => false,
+        ]);
     }
 
 }

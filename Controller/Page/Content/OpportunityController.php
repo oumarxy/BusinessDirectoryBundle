@@ -1,6 +1,9 @@
 <?php
-namespace SavoirFaireLinux\BusinessDirectoryBundle\Repository\Page;
-use SavoirFaireLinux\BusinessDirectoryBundle\Repository\PageRepository;
+namespace SavoirFaireLinux\BusinessDirectoryBundle\Controller\Page\Content;
+use SavoirFaireLinux\BusinessDirectoryBundle\Controller\Page\ContentController;
+
+use SavoirFaireLinux\BusinessDirectoryBundle\Entity\Page\Content\Opportunity;
+use SavoirFaireLinux\BusinessDirectoryBundle\Form\Page\Content\OpportunityType;
 
 /**
  * SFL/BusinessDirectory - Symfony3 business directory
@@ -23,6 +26,14 @@ use SavoirFaireLinux\BusinessDirectoryBundle\Repository\PageRepository;
  * along with SFL/BusinessDirectory.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QuoteRepository extends PageRepository {
+class OpportunityController extends ContentController {
+
+    static $name = [
+        'singular' => "opportunity",
+        'plural' => "opportunities",
+    ];
+    static $form = OpportunityType::class;
+    static $model = Opportunity::class;
+    static $route = 'opportunity';
 
 }
