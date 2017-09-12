@@ -1,0 +1,37 @@
+{% extends 'BusinessDirectoryBundle::Layout/base.html.twig' %}
+
+{% block title %}{{ page.name }}{% endblock %}
+{% block description %}{{ page.description }}{% endblock %}
+{% block author %}{% if page.organization is defined %}{{ page.organization.name }}{% endif %}{% endblock %}
+
+{% block content %}
+<ul>
+    {% if page.emailAddress %}
+    <li>
+        <p><strong>Email address : </strong> {{ page.emailAddress }}</p>
+    </li>
+    {% endif %}
+    {% if page.websiteAddress %}
+    <li>
+        <p><strong>Website address : </strong> {{ page.websiteAddress }}</p>
+    </li>
+    {% endif %}
+    {% if page.phoneNumber %}
+    <li>
+        <p><strong>Phone number : </strong> {{ page.phoneNumber }}</p>
+    </li>
+    {% endif %}
+    {% if page.officeAddress %}
+    <li>
+        <p><strong>Office address : </strong> {{ page.officeAddress }}</p>
+    </li>
+    {% endif %}
+</ul>
+
+
+<p>{{ page.description }}</p>
+<hr/>
+
+{{ page.content|nl2br }}
+
+{% endblock %}
