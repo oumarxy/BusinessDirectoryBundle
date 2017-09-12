@@ -1,0 +1,63 @@
+- type: Region
+  fields:
+    name: Ontario
+- type: Region
+  fields:
+    name: Quebec
+- type: Region
+  fields:
+    name: Nova Scotia
+- type: Region
+  fields:
+    name: New Brunswick
+- type: Region
+  fields:
+    name: Manitoba
+- type: Region
+  fields:
+    name: British Columbia
+- type: Region
+  fields:
+    name: Prince Edward Island
+- type: Region
+  fields:
+    name: Saskatchewan
+- type: Region
+  fields:
+    name: Alberta
+- type: Region
+  fields:
+    name: Newfoundland and Labrador
+- type: Category
+  fields:
+    name: Agriculture
+- type: Category
+  fields:
+    name: Construction
+- type: Category
+  fields:
+    name: Culture
+- type: Category
+  fields:
+    name: Energy
+- type: Category
+  fields:
+    name: Information and communications technology
+- type: Category
+  fields:
+    name: Manufacturing
+- type: Category
+  fields:
+    name: Natural resources
+- type: Category
+  fields:
+    name: Retail and wholesale
+- type: Category
+  fields:
+    name: Science and technology
+- type: Category
+  fields:
+    name: Transportation
+- type: Category
+  fields:
+    name: Travel and tourism
